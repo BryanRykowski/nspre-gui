@@ -1,0 +1,6 @@
+[submodule "nspre"]
+	path = nspre
+	url = https://github.com/BryanRykowski/nspre
+[submodule "imgui"]
+	path = imgui
+	url = https://github.com/ocornut/imgui
