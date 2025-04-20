@@ -30,6 +30,10 @@ static_assert(NSPRE_VERSION_MAJOR == 1);
 #include <GL/gl.h>
 #include <cstdio>
 
+#ifndef NSPRE_GUI_VERSION
+#define NSPRE_GUI_VERSION "undefined"
+#endif
+
 #if !defined(_WIN32) && !defined(NSPRE_GUI_SLEEPWAIT)
 #define NSPRE_GUI_SLEEPWAIT
 #endif
@@ -71,6 +75,21 @@ void top_window() {
 		ImGui::PushItemWidth(400);
 		ImGui::TextWrapped("%s", global.error_modal_text.str().c_str());
 		ImGui::PopItemWidth();
+
+		if (ImGui::Button("OK")) {
+			ImGui::CloseCurrentPopup();
+		}
+
+		ImGui::EndPopup();
+	}
+
+	ImGui::SetNextWindowSizeConstraints({300,50}, {500, global.io->DisplaySize.y - 24});
+	if (ImGui::BeginPopupModal("About", 0, ImGuiWindowFlags_AlwaysAutoResize)) {
+		ImGui::Text("Version %s", NSPRE_GUI_VERSION);
+		ImGui::Dummy({0,0});
+		ImGui::Text("(c) 2025 Bryan Rykowski");
+		ImGui::TextLinkOpenURL("https:/github.com/BryanRykowski/nspre-gui");
+		ImGui::Dummy({0,0});
 
 		if (ImGui::Button("OK")) {
 			ImGui::CloseCurrentPopup();
@@ -121,6 +140,8 @@ int main(int argc, char** argv) {
 			ns::extract_window.open_pre(argv[i]);
 		}
 	}
+
+	std::printf("nspre-gui version %s\n", NSPRE_GUI_VERSION);
 
 	if (SDL_Init(SDL_INIT_EVERYTHING)) {
 		std::fprintf(stderr, "sdl init failed\n");

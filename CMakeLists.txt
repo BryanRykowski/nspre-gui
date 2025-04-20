@@ -1,7 +1,9 @@
 cmake_minimum_required (VERSION 3.18.4)
-project (nspre_gui_proj VERSION 1.0.0)
+project (nspre_gui_proj VERSION 1.0.1)
 
 find_package(SDL2 REQUIRED)
+
+add_compile_definitions(NSPRE_GUI_VERSION="${CMAKE_PROJECT_VERSION}")
 
 add_executable(nspre-gui)
 

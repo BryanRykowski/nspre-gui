@@ -167,6 +167,7 @@ void ExtractWindow::show() {
 	bool open_file = false;
 	bool select_dir = false;
 	bool export_csv = false;
+	bool show_about = false;
 
 	if (ImGui::BeginMenuBar()) {
 		if (ImGui::BeginMenu("File")) {
@@ -213,7 +214,18 @@ void ExtractWindow::show() {
 			ImGui::EndMenu();
 		}
 
+		if (ImGui::BeginMenu("Help")) {
+			if (ImGui::MenuItem("About nspre-gui...")) {
+				show_about = true;
+			}
+			ImGui::EndMenu();
+		}
+
 		ImGui::EndMenuBar();
+	}
+
+	if (show_about) {
+		ImGui::OpenPopup("About");
 	}
 
 	if (pre_is_open()) {

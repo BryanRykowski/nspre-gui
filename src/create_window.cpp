@@ -129,6 +129,7 @@ void CreateWindow::show() {
 	bool create_popup = false;
 	bool show_edit = false;
 	bool add_files = false;
+	bool show_about = false;
 	if (ImGui::BeginMenuBar()) {
 		if (ImGui::BeginMenu("File")) {
 			if (ImGui::MenuItem("Add file(s)...")) {
@@ -167,11 +168,22 @@ void CreateWindow::show() {
 			ImGui::EndMenu();
 		}
 
+		if (ImGui::BeginMenu("Help")) {
+			if (ImGui::MenuItem("About nspre-gui...")) {
+				show_about = true;
+			}
+			ImGui::EndMenu();
+		}
+
 		ImGui::EndMenuBar();
 	}
 
 	if (create_popup) {
 		ImGui::OpenPopup("Save");
+	}
+
+	if (show_about) {
+		ImGui::OpenPopup("About");
 	}
 
 	if (files.size()) {
